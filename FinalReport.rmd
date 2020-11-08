@@ -1,7 +1,7 @@
 ---
 title: "GSS challange"
-author: "Put your name here!"
-date: "put the date here"
+author: "Kristina Larson"
+date: "October 14, 2020"
 output: html_document
 ---
 
@@ -28,19 +28,48 @@ Is belief in the bigbang theory (BIGBANG) independent of belief in an afterlife 
 
 ## Descriptive Results
 
+
 ### Graphical Descriptive Results
 
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question. Bottom line is to explain the features of the graph that are relevant to conforming or departing to what is expected by your null hypothesis !-->
+ 
+```{r}
+barchartGC(~POSTLIFE + BIGBANG, data=GSS)
+barchartGC(~POSTLIFE + BIGBANG, data=GSS, type="percent")
+```
+
+
+Looking at this graph it appears there is alot more people who believe in postlife and the majority of these people believe the bigbang theory is false. Of all the people who do not believe in postlife, none of them believe in the bigbang theory. There is statistically a significant difference between believing in postlife versus the bigbang theory. You also have a relationship in folks who tend to believe in postlife and bigbang theory.
+
 
 ### Numerical Descriptive Results
 
+
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
-## Inferential Results
+```{r}
+table1 <- xtabs(~POSTLIFE + BIGBANG, data=GSS)
+rowPerc(table1)
+colPerc(table1)
+```
+
+
+
+
+About 35% of people who do not believe in the postlife believe that the bigbang theory is false and 65% of people who do not believe that the bigbang theory is true. Then about 57% of people who do believe in postlife believe that the bigbang theory is false and 43% of people who believe in the postlife believe that the bigbang theory is true. Numerical results are inline and building up evidence not independent.
+
+### Inferential Results
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
 
-
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+Let's talk about odds for a minute. Of those who believe in postlife what are the odds you say the big bang theory is false? For those who said NO the odds of saying the belief of postlife is false is 8/15. Now suppose that you do believe in postlife the odds are 88/67. Odds ratio is 1. If we had more data these results would be more significant to make a determonation. Odds ratio is 406:1 
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If you found a relationship be sure to consider whether the relationship occurs because one of the variavbles causes the other, or whether they perhasps are related for some other reason.  Watch the chapter 6 videos from the GeorgeTown videos collection.!-->
+
+Data does not show that we failed to reject the null hypothesis because there is not enough data to show. The probability of getting something in life again is .08% of the time which is also the p. value.
